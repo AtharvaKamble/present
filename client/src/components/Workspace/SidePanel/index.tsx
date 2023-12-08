@@ -16,20 +16,29 @@ export interface SidePanelProps {
 
 export function SidePanel({ className }: SidePanelProps) {
   return (
-    <div className={`border-r border-slate-600 p-4 ${className}`}>
+    <div className={`border-r border-slate-600 p-4 bg-stone-600 ${className}`}>
       <Tabs colorScheme="orange">
         <TabList>
           <Tab>Slides</Tab>
           <Tab>Animations</Tab>
           <Tab>Toolbox</Tab>
         </TabList>
-
         <TabPanels>
           <Previews />
           <Animations />
-          <ToolBox />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              flexWrap: 'wrap',
+            }}
+          >
+            <ToolBox />
+          </div>
         </TabPanels>
       </Tabs>
+
       {/* <Tabs defaultValue="slides">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="slides">Slides</TabsTrigger>

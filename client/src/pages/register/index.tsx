@@ -15,26 +15,29 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import '../register/index.css'
 
 interface TLoginFormData {
+  firstName: string
+  lastName: string
   email: string
   password: string
 }
 
-export default function Login() {
+export default function Register() {
   const router = useRouter()
   const toast = useToast()
   // const { setUserId } = useLocalStorage()
 
   const [show, setShow] = useState(false)
   const [formData, setFormData] = useState<TLoginFormData>({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   })
   const [loading, setLoading] = useState<boolean>(false)
 
-  const SERVER_DOMAIN =
-    process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
   async function handleLogin() {
     // Validation start
     if (!/^\S+@\S+\.\S+$/.test(formData?.email)) {
@@ -46,7 +49,12 @@ export default function Login() {
       })
       return
     }
-    if (formData?.email.length === 0 || formData?.password.length === 0) {
+    if (
+      formData?.firstName.length === 0 ||
+      formData?.lastName.length === 0 ||
+      formData?.email.length === 0 ||
+      formData?.password.length === 0
+    ) {
       toast({
         title: 'Please enter all details',
         status: 'error',
@@ -55,10 +63,39 @@ export default function Login() {
       })
       return
     }
+    if (formData?.password.length < 7) {
+      toast({
+        title: 'Password cannot be less than 7 characters',
+        status: 'error',
+        position: 'top',
+        isClosable: false,
+      })
+      return
+    }
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        formData?.password,
+      )
+    ) {
+      const msg =
+        'Invalid password. Please follow these rules:\n' +
+        '- At least 8 characters\n' +
+        '- At least one uppercase letter\n' +
+        '- At least one lowercase letter\n' +
+        '- At least one digit\n' +
+        '- At least one special character (@$!%*?&)'
+      toast({
+        title: msg,
+        status: 'error',
+        position: 'top',
+        isClosable: true,
+      })
+      return
+    }
     // Validation end
 
     setLoading(true)
-    const res = await fetch(`/api/user/login`, {
+    const res = await fetch(`/api/user/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,37 +106,14 @@ export default function Login() {
     const data = await res.json()
 
     setLoading(false)
-
-    if (data?.error) {
-      if (data?.error.toLowerCase() === 'user_not_exist') {
-        toast({
-          title: 'User does not exist',
-          status: 'error',
-          position: 'top',
-          isClosable: false,
-        })
-      } else if (data?.error.toLowerCase() === 'password_not_match') {
-        toast({
-          title: 'Incorrect password',
-          status: 'error',
-          position: 'top',
-          isClosable: false,
-        })
-      }
-      return
-    }
-    // add user to localstorage
-
-    store('user_id', data?.body?._id)
-    store('user_name', data?.body?.firstName)
-    toast({
-      title: `Welcome back, ${data?.body?.firstName}`,
+    await toast({
+      title: `Account created successfully, you may login now`,
       status: 'success',
       position: 'top',
       isClosable: false,
     })
 
-    router.push('/home')
+    router.push('/login')
   }
 
   return (
@@ -107,13 +121,51 @@ export default function Login() {
       <Center>
         <Card maxW="md" className="md:mx-0 mx-4">
           <CardHeader>
-            <Heading className="text-stone-900">Welcome back</Heading>
+            <Heading
+              className="text-stone-900"
+              display="flex"
+              justifyContent="center"
+            >
+              Register Here
+            </Heading>
           </CardHeader>
           <CardBody>
-            <Text>Email</Text>
+            <Text>First Name*</Text>
+            <Input
+              placeholder="Enter your first name"
+              className="mt-1 input-styling"
+              size="md"
+              value={formData?.firstName}
+              onChange={(e) =>
+                setFormData((prev) => {
+                  return {
+                    ...prev,
+                    firstName: e.target.value,
+                  }
+                })
+              }
+            />
+
+            <Text>Last Name*</Text>
+            <Input
+              placeholder="Enter your last name"
+              className="mt-1 input-styling"
+              size="md"
+              value={formData?.lastName}
+              onChange={(e) =>
+                setFormData((prev) => {
+                  return {
+                    ...prev,
+                    lastName: e.target.value,
+                  }
+                })
+              }
+            />
+
+            <Text>Email*</Text>
             <Input
               placeholder="Enter your email"
-              className="mt-1"
+              className="mt-1 input-styling"
               size="md"
               value={formData?.email}
               onChange={(e) =>
@@ -125,14 +177,14 @@ export default function Login() {
                 })
               }
             />
-            <Text className="mt-10">Password</Text>
+            <Text className="">Password*</Text>
 
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
                 type={show ? 'text' : 'password'}
                 placeholder="Enter password"
-                className="mt-1"
+                className="mt-1 input-styling"
                 value={formData?.password}
                 onChange={(e) =>
                   setFormData((prev) => {
@@ -154,7 +206,7 @@ export default function Login() {
               </InputRightElement>
             </InputGroup>
           </CardBody>
-          <CardFooter>
+          <CardFooter display="flex" justifyContent="center">
             <Button
               _hover={{ color: '#EAEAEA', backgroundColor: '#373737' }}
               backgroundColor="#1C1C1C"
@@ -162,7 +214,7 @@ export default function Login() {
               onClick={() => handleLogin()}
               isLoading={loading}
             >
-              Login
+              Register
             </Button>
           </CardFooter>
         </Card>

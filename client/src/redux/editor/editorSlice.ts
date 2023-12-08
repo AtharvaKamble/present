@@ -70,6 +70,25 @@ export const editorSlice = createSlice({
       console.log(`Element (${element.name}) mounted`)
     },
 
+    changeInputValue: (state: EditorState, action) => {
+      const { pages, focusedPageId } = state
+      const { payload } = action
+      const { id, value } = payload
+
+      const elementId: string = id
+      if (elementId === '0') return
+
+      const targetpage = pages?.find((p: TPage) => p?.id === focusedPageId)
+      if (!targetpage) {
+        console.error(`PageError: Page with ${focusedPageId} not found!`)
+        return
+      }
+
+      const element = targetpage.elements.filter((p) => p?.id === elementId)[0]
+
+      element.inputValue = value
+    },
+
     moveElement: (state: EditorState, action) => {
       const { pages, focusedPageId } = state
       const { payload } = action
@@ -173,6 +192,7 @@ export const {
   addAnimation,
   setEditorProperties,
   deletePage,
+  changeInputValue,
 } = editorSlice.actions
 
 export default editorSlice.reducer

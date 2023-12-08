@@ -1,6 +1,7 @@
 import dbConnect from '@/server/lib/dbConnect'
 import User from '@/server/models/User'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import bcrypt from 'bcrypt'
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,8 +28,8 @@ export default async function handler(
         break
       }
 
-      //   const ismatch = await bcrypt.compare(password, user.password)
-      const ismatch = password === user.password
+      const ismatch = await bcrypt.compare(password, user.password)
+      // const ismatch = password === user.password
 
       if (!ismatch) {
         res

@@ -9,6 +9,7 @@ import ContextMenu from './Element/ContextMenuRightClick'
 import {
   changeElementSize,
   setEditorProperties,
+  changeInputValue,
 } from '@/redux/editor/editorSlice'
 
 const tmap: any = {
@@ -96,27 +97,56 @@ export function Page({ className, drop, page }: PageProps) {
       className={`w-3/4 relative rounded-sm mx-[45px] ${bg} ${className}`}
       data-testid="editor"
     >
-      {targetPage?.elements?.map((element) => (
-        <Resizable
-          key={element?.id}
-          style={{
-            position: 'absolute',
-            top: element?.position?.y,
-            left: element?.position?.x,
-          }}
-          defaultSize={{ width: element?.width, height: element?.height }}
-          onResize={(e) => {
-            handleResize(e, element)
-          }}
-        >
-          <Element
-            key={element?.id}
-            element={element}
-            onLeftClick={handleLeftClick}
-            onRightClick={handleRightClick}
-          />
-        </Resizable>
-      ))}
+      {targetPage?.elements?.map((element) => {
+        if (element?.name.toLowerCase() === 'text') {
+          return (
+            <input
+              key={element?.id}
+              value={element?.inputValue}
+              placeholder="Enter something"
+              className="font-heading"
+              style={{
+                position: 'absolute',
+                top: element?.position?.y,
+                left: element?.position.x,
+                fontSize: '45px',
+                background: 'transparent',
+                color: 'black',
+              }}
+              onChange={(e) => {
+                dispatch(
+                  changeInputValue({
+                    id: element?.id,
+                    value: e?.target?.value,
+                  }),
+                )
+              }}
+            />
+          )
+        } else {
+          return (
+            <Resizable
+              key={element?.id}
+              style={{
+                position: 'absolute',
+                top: element?.position?.y,
+                left: element?.position?.x,
+              }}
+              defaultSize={{ width: element?.width, height: element?.height }}
+              onResize={(e) => {
+                handleResize(e, element)
+              }}
+            >
+              <Element
+                key={element?.id}
+                element={element}
+                onLeftClick={handleLeftClick}
+                onRightClick={handleRightClick}
+              />
+            </Resizable>
+          )
+        }
+      })}
     </div>
   )
 }
