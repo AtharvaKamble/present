@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import { DragSourceMonitor, useDrag, useDrop } from 'react-dnd'
 import { useRef } from 'react'
+import { useToast } from '@chakra-ui/react'
 
 import { TElement } from '@/shared/types'
 import { addAnimation, setEditorProperties } from '@/redux/editor/editorSlice'
@@ -23,6 +24,8 @@ export function Element({
   const { editor } = useSelector((state: any) => state.editor)
   const dispath = useDispatch()
 
+  const toast = useToast()
+
   const { id, icon, position, width, height, name } = element
 
   const [{ isDragging }, elementDrag, preview] = useDrag(
@@ -43,7 +46,12 @@ export function Element({
 
   const [, drop] = useDrop({
     accept: 'TAnimation',
-    drop: (item) => {
+    drop: (item: any) => {
+      toast({
+        title: `${item.name} applied`,
+        colorScheme: 'linkedin',
+        position: 'bottom-right',
+      })
       dispath(addAnimation({ item, id }))
     },
   })
@@ -77,7 +85,7 @@ export function Element({
         width,
         height,
       }}
-      className={`hover:border border-slate-800 border-dashed ${className}`}
+      className={`${className}`}
       onClick={onLeftClick}
       onMouseDown={(e) => onMouseDown(e, position.x, position.y)}
     >

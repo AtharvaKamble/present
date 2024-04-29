@@ -123,7 +123,7 @@ export default function MyStuff() {
           </Button>
         </Stack>
       </nav>
-      <Card className="my-10 mx-auto h-5/6 w-2/4">
+      <Card className="my-10 mx-auto h-5/6 sm:w-2/4 w-[95%]">
         <CardHeader className="flex justify-between">
           <Text className=" text-stone-900">My presentations</Text>
           <DialogBox

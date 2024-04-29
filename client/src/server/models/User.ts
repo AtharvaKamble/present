@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 
 export interface TUser extends mongoose.Document {
   firstName: string
@@ -24,8 +25,18 @@ const UserSchema = new mongoose.Schema<TUser>({
   },
   password: {
     type: String,
-    required: [true, 'Please provide an email'],
+    required: [true, 'Please provide a password'],
   },
+})
+
+UserSchema.pre('save', async function (next) {
+  const user = this
+
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(user.password, 8)
+  }
+
+  next()
 })
 
 export default mongoose.models.Users ||

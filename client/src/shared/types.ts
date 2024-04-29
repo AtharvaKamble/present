@@ -18,6 +18,7 @@ export interface TElement {
   width: string
   height: string
   mouseOffset: TMouseOffset
+  inputValue: string
 }
 
 export interface TMouseOffset {

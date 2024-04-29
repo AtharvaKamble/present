@@ -3,11 +3,13 @@ import { MouseEventHandler } from 'react'
 
 export interface ControlsBarProps {
   setFocusedPage: React.Dispatch<React.SetStateAction<number>>
+  focusedPage: number
   className?: string
 }
 
 export default function ControlsBar({
   setFocusedPage,
+  focusedPage,
   className,
 }: ControlsBarProps) {
   const controls = [
@@ -51,7 +53,7 @@ export default function ControlsBar({
           </button>
         </Tooltip>
       ))}
-      <p className="my-auto">Page 3</p>
+      <p className="my-auto">Page {focusedPage}</p>
     </div>
   )
 }

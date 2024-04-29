@@ -56,6 +56,7 @@ export const Tool = function Tool({ className, name, icon }: ToolProps) {
       x: 0,
       y: 0,
     },
+    inputValue: '',
   }
 
   const [{ isDragging }, drag] = useDrag(() => ({
