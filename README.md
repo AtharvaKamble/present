@@ -37,3 +37,8 @@ To run this application locally, follow these steps:
 - [Atharva Kamble](https://github.com/atharvaneu)
 - [Gaurav Sinha](https://github.com/sinhagaurav7)
 - [Govind Mudavadkar](https://github.com/GovindMNEU)
+
+# How to contribute
+We welcome contributors to the project and encourage you to report issues to us the moment you find them.
+
+To contribute, fork the repo, clone the `dev` branch and open a PR - we would be more than happy to take a look at what you've submitted.
