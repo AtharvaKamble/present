@@ -5,57 +5,78 @@ import { Button } from '@/shadcn/ui/button'
 import { useRouter } from 'next/router'
 import { Center, Text, Stack } from '@chakra-ui/react'
 import Bgimage from '../../images/backg-image.jpg'
-import Image from 'next/image'
+// import './index.css'
 
 export default function Landing() {
-  const router = useRouter()
-
+  const headerFont = { fontFamily: 'Montserrat' }
+  const paraFont = { fontFamily: 'Merriweather' }
+  // const router = useRouter()
+  // const SERVER_DOMAIN =
+  //   process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
+  // async function handleRegister() {
+  //   router.push('/register')
+  // }
   return (
-    <section className="text-stone-200 w-full h-screen flex flex-col bg-stone-900">
-      <nav className=" w-full flex justify-between p-3 border-b-2 border-stone-200">
-        <h2 className="my-auto font-heading">PRESENT</h2>
-        <Stack spacing={4} direction="row" align="center" className="my-auto">
-          {/* <ModeToggle /> */}
-          <Button
-            variant="link"
-            onClick={() => router.push('/aboutus')}
-            className="text-stone-200"
-          >
-            About us
-          </Button>
-
-          <Button
-            variant="link"
-            onClick={() => router.push('/contactus')}
-            className="text-stone-200"
-          >
-            Contact us
-          </Button>
-          {/* <Button variant="link">Settings</Button> */}
-        </Stack>
-      </nav>
-      <div className="w-full h-full flex justify-center">
-        <Center className="flex">
-          <div className="flex flex-col text-center p-10 w-1/2">
-            <Text className="text-7xl font-heading">Present</Text>
-            <Text className="mt-2">
-              Unleash your ideas, craft your story, <br />
-              captivate your audience
-            </Text>
-            <div className="mt-8 mx-auto flex gap-4 text-stone-300">
-              <Button
-                variant="secondary"
-                onClick={() => router.push('/register')}
-              >
-                Get started
-              </Button>
-              <Button
-                variant="link"
-                onClick={() => router.push('/login')}
-                className="text-stone-300"
-              >
-                I have an account
-              </Button>
+    <>
+      <div className="navbar-container">
+        <div>
+          <header>
+            <h3>Present</h3>
+          </header>
+        </div>
+        <div>
+          <nav>
+            <div>
+              <ul className="nav-links">
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div className="nav-buttons">
+          {/* <Button className="button-style" onClick={handleRegister}> */}
+          <Button className="button-style">Sign Up</Button>
+          <Button className="button-style">Sign In</Button>
+        </div>
+      </div>
+      <section>
+        <p className="header-info" style={headerFont}>
+          Present: Unleash Your Ideas, Craft Your Story, <br />
+          Captivate Your Audience.
+        </p>
+        <div className="container style-container">
+          <div className="row info-container">
+            <div className="col-md-6">
+              <div className="left-side">
+                <p style={paraFont}>
+                  Step into the world of Present, your gateway to effortless
+                  elegance in presentations. Tailored for professionals,
+                  business users, creative professionals, and remote teams,
+                  Present offers a user-friendly experience reminiscent of
+                  Google Slides, coupled with an exciting brand atmosphere that
+                  brings joy to your creative process.
+                </p>
+                <p style={paraFont}>
+                  Craft presentations effortlessly with our intuitive tools,
+                  collaborate seamlessly with remote teams, and present with
+                  style. Our platform is not just about conveying information;
+                  it's about making a statement with every slide. Immerse
+                  yourself in a brand that radiates happiness and excitement,
+                  and let your presentations reflect that same effortless
+                  elegance.
+                </p>
+                <div className="info-buttons">
+                  <Button className="btn-style">Get Started</Button>
+                  <Button className="btn-style">Learn More</Button>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="right-side">
+                <Image src={Bgimage} alt="bgimage" className="image-styling" />
+              </div>
             </div>
           </div>
           <div className="w-1/2">
