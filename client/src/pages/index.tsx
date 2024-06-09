@@ -58,8 +58,8 @@ export default function Landing() {
           </div>
           <div className="w-1/2">
             <img
-              src="/mypresentations-landing.png"
-              alt="Supporting image"
+              src={`${process.env.NEXT_PUBLIC_ASSET_PREFIX}/mypresentations-landing.png`}
+              alt="Presentation app demo"
               width={'100%'}
               className="image-styling rounded-xl border border-stone-300"
             />

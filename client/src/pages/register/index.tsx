@@ -95,7 +95,7 @@ export default function Register() {
     // Validation end
 
     setLoading(true)
-    const res = await fetch(`/api/user/register`, {
+    const res = await fetch(`api/user/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -104,6 +104,7 @@ export default function Register() {
     })
 
     const data = await res.json()
+    console.log(data)
 
     setLoading(false)
     await toast({

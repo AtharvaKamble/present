@@ -31,8 +31,8 @@
 **/lerna-debug.log*
 
 # local env files
-**/.env*.local
-**/.env.*
+**/.env
+**/.env.production
 
 # vercel
 **/.vercel

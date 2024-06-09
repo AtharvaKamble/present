@@ -4,6 +4,7 @@ const nextConfig = {
     domains: ['https://picsum.photos/'],
   },
   reactStrictMode: false,
+  basePath: '/present',
   headers: async () => {
     return [
       {

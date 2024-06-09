@@ -2,9 +2,9 @@
 'use client'
 
 import React from 'react'
-import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react'
+// import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react'
 
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/ui/tabs'
 
 import { Animations } from './Animations'
 import { Previews } from './Previews'
@@ -16,8 +16,8 @@ export interface SidePanelProps {
 
 export function SidePanel({ className }: SidePanelProps) {
   return (
-    <div className={`border-r border-slate-600 p-4 bg-stone-600 ${className}`}>
-      <Tabs colorScheme="orange">
+    <div className={`border-r border-slate-600 p-2 bg-stone-800 ${className}`}>
+      {/* <Tabs colorScheme="orange">
         <TabList>
           <Tab>Slides</Tab>
           <Tab>Animations</Tab>
@@ -37,9 +37,9 @@ export function SidePanel({ className }: SidePanelProps) {
             <ToolBox />
           </div>
         </TabPanels>
-      </Tabs>
+      </Tabs> */}
 
-      {/* <Tabs defaultValue="slides">
+      <Tabs defaultValue="slides" className="h-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="slides">Slides</TabsTrigger>
           <TabsTrigger value="animations">Animations</TabsTrigger>
@@ -52,10 +52,10 @@ export function SidePanel({ className }: SidePanelProps) {
         <TabsContent value="animations">
           <Animations />
         </TabsContent>
-        <TabsContent value="toolbox">
+        <TabsContent value="toolbox" className="h-full">
           <ToolBox />
         </TabsContent>
-      </Tabs> */}
+      </Tabs>
     </div>
   )
 }

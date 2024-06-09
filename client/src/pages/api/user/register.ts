@@ -30,7 +30,7 @@ export default async function handler(
         res.status(200).json({ success: true })
       } catch (e) {
         res.status(400).json({ success: false, error: e })
-        console.log(e)
+        console.log('ERROR', e)
       }
 
       break

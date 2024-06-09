@@ -15,23 +15,23 @@ const tools = [
   {
     name: 'Ease in',
     css: 'ease-in',
-    icon: '../icons/ease-in.svg',
+    icon: `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-in.svg`,
   },
   {
     name: 'Ease out',
     css: 'ease-out',
-    icon: '../icons/ease-out.svg',
+    icon: `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-out.svg`,
   },
   {
     name: 'Ease in out',
     css: 'ease-in-out',
-    icon: '../icons/ease-in-out.svg',
+    icon: `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-in-out.svg`,
   },
 ]
 
 export function Animations({ className }: AnimationsProps) {
   return (
-    <TabPanel>
+    <>
       <div className="grid grid-cols-4">
         {tools.map(({ name, css, icon }) => {
           function generateKey(s: string) {
@@ -47,6 +47,6 @@ export function Animations({ className }: AnimationsProps) {
           )
         })}
       </div>
-    </TabPanel>
+    </>
   )
 }

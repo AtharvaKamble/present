@@ -13,18 +13,18 @@ export function Previews({ className }: PreviewsProps) {
 
   if (!pages?.length) {
     return (
-      <TabPanel>
+      <>
         <p className="text-center">Add a slide!</p>
-      </TabPanel>
+      </>
     )
   }
 
   return (
-    <TabPanel>
+    <>
       {pages?.map((page: TPage) => {
         return <Thumbnail key={page?.id} pageId={page?.id} />
       })}
-    </TabPanel>
+    </>
   )
 }
 
@@ -78,7 +78,7 @@ function ButtonGroup({ className, visible, pageId }: ButtonGroupProps) {
     >
       <button onClick={() => handleDeleteSlide()}>
         <img
-          src="../icons/delete.svg"
+          src={`${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/delete.svg`}
           width={15}
           height={15}
           alt="Delete icon"
