@@ -33,6 +33,7 @@
 # local env files
 **/.env
 **/.env.production
+**/.env.local
 
 # vercel
 **/.vercel
