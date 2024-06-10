@@ -2,9 +2,7 @@
 'use client'
 
 import React from 'react'
-// import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react'
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/ui/tabs'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
 import { Animations } from './Animations'
 import { Previews } from './Previews'
@@ -17,44 +15,33 @@ export interface SidePanelProps {
 export function SidePanel({ className }: SidePanelProps) {
   return (
     <div className={`border-r border-slate-600 p-2 bg-stone-800 ${className}`}>
-      {/* <Tabs colorScheme="orange">
+      <Tabs colorScheme="orange">
         <TabList>
           <Tab>Slides</Tab>
           <Tab>Animations</Tab>
           <Tab>Toolbox</Tab>
         </TabList>
         <TabPanels>
-          <Previews />
-          <Animations />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              flexWrap: 'wrap',
-            }}
-          >
-            <ToolBox />
-          </div>
+          <TabPanel>
+            <Previews />
+          </TabPanel>
+
+          <TabPanel>
+            <Animations />
+          </TabPanel>
+          <TabPanel>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                width: '100%',
+                flexWrap: 'wrap',
+              }}
+            >
+              <ToolBox />
+            </div>
+          </TabPanel>
         </TabPanels>
-      </Tabs> */}
-
-      <Tabs defaultValue="slides" className="h-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="slides">Slides</TabsTrigger>
-          <TabsTrigger value="animations">Animations</TabsTrigger>
-          <TabsTrigger value="toolbox">Toolbox</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="slides">
-          <Previews />
-        </TabsContent>
-        <TabsContent value="animations">
-          <Animations />
-        </TabsContent>
-        <TabsContent value="toolbox" className="h-full">
-          <ToolBox />
-        </TabsContent>
       </Tabs>
     </div>
   )

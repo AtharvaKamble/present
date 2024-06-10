@@ -42,7 +42,6 @@ export function Page({ className, drop, page }: PageProps) {
   const targetPage: TPage = pages?.find((p: TPage) => p?.id === focusedPageId)
 
   if (!targetPage) {
-    console.error(`PageError: Page with ${focusedPageId} not found!`)
     return <div>Select a page from the sidepanel</div>
   }
 
@@ -98,7 +97,7 @@ export function Page({ className, drop, page }: PageProps) {
       data-testid="editor"
     >
       {targetPage?.elements?.map((element) => {
-        if (element?.name.toLowerCase() === 'text') {
+        if (element?.name?.toLowerCase() === 'text') {
           return (
             <input
               key={element?.id}

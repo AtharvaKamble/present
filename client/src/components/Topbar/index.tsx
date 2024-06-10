@@ -26,18 +26,21 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
 
   async function sendPresentation() {
     // if (pages?.length === 0) return
-    const res = await fetch(`api/presentation/edit`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/presentation/edit`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: params?.pid,
+          name: `${fileName}.ppt`,
+          user_uid: store('user_id'),
+          pages,
+        }),
       },
-      body: JSON.stringify({
-        _id: params?.pid,
-        name: `${fileName}.ppt`,
-        user_uid: store('user_id'),
-        pages,
-      }),
-    })
+    )
   }
 
   function handleClick(
@@ -102,7 +105,10 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
           </Button>
         </Tooltip>
         <Tooltip label="preview this presentation">
-          <a href={`/play/${params?.pid}`} target="_blank">
+          <a
+            href={`/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/play/${params?.pid}`}
+            target="_blank"
+          >
             <Button
               onClick={() => handleClick('preview')}
               variant="ghost"

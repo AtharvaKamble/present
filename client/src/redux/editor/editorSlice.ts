@@ -56,7 +56,6 @@ export const editorSlice = createSlice({
 
       const targetPage = pages?.find((p: TPage) => p?.id === focusedPageId)
       if (!targetPage) {
-        console.error(`PageError: Page with ${focusedPageId} not found!`)
         return
       }
 
@@ -80,7 +79,6 @@ export const editorSlice = createSlice({
 
       const targetpage = pages?.find((p: TPage) => p?.id === focusedPageId)
       if (!targetpage) {
-        console.error(`PageError: Page with ${focusedPageId} not found!`)
         return
       }
 
@@ -98,7 +96,6 @@ export const editorSlice = createSlice({
 
       const targetPage = pages?.find((p: TPage) => p?.id === focusedPageId)
       if (!targetPage) {
-        console.error(`PageError: Page with ${focusedPageId} not found!`)
         return
       }
 
@@ -154,7 +151,6 @@ export const editorSlice = createSlice({
 
       const targetPage = pages?.find((p: TPage) => p?.id === focusedPageId)
       if (!targetPage) {
-        console.error(`PageError: Page with ${focusedPageId} not found!`)
         return
       }
 
@@ -172,7 +168,6 @@ export const editorSlice = createSlice({
 
       const targetPage = pages?.find((p: TPage) => p?.id === focusedPageId)
       if (!targetPage) {
-        console.error(`PageError: Page with ${focusedPageId} not found!`)
         return
       }
 

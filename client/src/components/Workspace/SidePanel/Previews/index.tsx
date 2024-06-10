@@ -78,7 +78,7 @@ function ButtonGroup({ className, visible, pageId }: ButtonGroupProps) {
     >
       <button onClick={() => handleDeleteSlide()}>
         <img
-          src={`${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/delete.svg`}
+          src={`/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/delete.svg`}
           width={15}
           height={15}
           alt="Delete icon"

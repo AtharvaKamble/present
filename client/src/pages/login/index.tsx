@@ -58,13 +58,16 @@ export default function Login() {
     // Validation end
 
     setLoading(true)
-    const res = await fetch(`api/user/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/user/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       },
-      body: JSON.stringify(formData),
-    })
+    )
 
     const data = await res.json()
 

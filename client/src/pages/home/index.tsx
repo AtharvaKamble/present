@@ -35,7 +35,9 @@ export default function MyStuff() {
   const SERVER_DOMAIN =
     process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
   async function populatePresentations() {
-    const res = await fetch(`api/presentation/user/${userID}`) // cache this in the future
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/presentation/user/${userID}`,
+    ) // cache this in the future
     const data = await res.json()
 
     setPresentations(() => data?.body)
@@ -62,31 +64,37 @@ export default function MyStuff() {
     hour12: true,
   }
   async function handleAddNewPresentation() {
-    const res = await fetch(`api/presentation/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/presentation/create`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_uid: userID,
+          name:
+            newPresentationName?.length === 0
+              ? `Untitled - ${new Intl.DateTimeFormat('en-US', dateOpts).format(
+                  new Date(),
+                )}`
+              : newPresentationName,
+          pages: [],
+        }),
       },
-      body: JSON.stringify({
-        user_uid: userID,
-        name:
-          newPresentationName?.length === 0
-            ? `Untitled - ${new Intl.DateTimeFormat('en-US', dateOpts).format(
-                new Date(),
-              )}`
-            : newPresentationName,
-        pages: [],
-      }),
-    })
+    )
     const data = await res.json()
 
     populatePresentations()
   }
 
   async function handleRemove(pid: string) {
-    const res = await fetch(`api/presentation/${pid}`, {
-      method: 'DELETE',
-    })
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/presentation/${pid}`,
+      {
+        method: 'DELETE',
+      },
+    )
 
     populatePresentations()
   }

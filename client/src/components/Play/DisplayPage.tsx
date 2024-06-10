@@ -13,7 +13,7 @@ export default function DisplayPage({ page }: DisplayPageProps) {
       data-testid="editor"
     >
       {page?.elements.map((element) => {
-        if (element?.name.toLowerCase() === 'text') {
+        if (element?.name?.toLowerCase() === 'text') {
           return (
             <input
               disabled
