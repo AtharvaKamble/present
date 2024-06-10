@@ -15,17 +15,17 @@ const tools = [
   {
     name: 'Ease in',
     css: 'ease-in',
-    icon: `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-in.svg`,
+    icon: `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-in.svg`,
   },
   {
     name: 'Ease out',
     css: 'ease-out',
-    icon: `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-out.svg`,
+    icon: `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-out.svg`,
   },
   {
     name: 'Ease in out',
     css: 'ease-in-out',
-    icon: `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-in-out.svg`,
+    icon: `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/icons/ease-in-out.svg`,
   },
 ]
 

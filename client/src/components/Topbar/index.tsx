@@ -26,7 +26,7 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
 
   async function sendPresentation() {
     // if (pages?.length === 0) return
-    const res = await fetch(`/api/presentation/edit`, {
+    const res = await fetch(`api/presentation/edit`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

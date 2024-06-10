@@ -58,7 +58,7 @@ export default function Login() {
     // Validation end
 
     setLoading(true)
-    const res = await fetch(`/api/user/login`, {
+    const res = await fetch(`api/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

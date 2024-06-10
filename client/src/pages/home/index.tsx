@@ -35,18 +35,18 @@ export default function MyStuff() {
   const SERVER_DOMAIN =
     process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
   async function populatePresentations() {
-    const res = await fetch(`/api/presentation/user/${userID}`) // cache this in the future
+    const res = await fetch(`api/presentation/user/${userID}`) // cache this in the future
     const data = await res.json()
 
     setPresentations(() => data?.body)
   }
 
   function handleEditClick(pid: string) {
-    window.open(`/work/${pid}`)
+    window.open(`/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/work/${pid}`)
   }
 
   function handlePreviewClick(pid: string) {
-    window.open(`/play/${pid}`)
+    window.open(`/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/play/${pid}`)
   }
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function MyStuff() {
     hour12: true,
   }
   async function handleAddNewPresentation() {
-    const res = await fetch(`/api/presentation/create`, {
+    const res = await fetch(`api/presentation/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export default function MyStuff() {
   }
 
   async function handleRemove(pid: string) {
-    const res = await fetch(`/api/presentation/${pid}`, {
+    const res = await fetch(`api/presentation/${pid}`, {
       method: 'DELETE',
     })
 
