@@ -104,10 +104,23 @@ export default function Register() {
     })
 
     const data = await res.json()
-    console.log(data)
+
+    if (!data?.success && data?.error?.code === 11000) {
+      //  duplicate key error code from MongoDB
+      console.log(data)
+
+      setLoading(false)
+      toast({
+        title: `Seems like this e-mail is already in use`,
+        status: 'warning',
+        position: 'top',
+        isClosable: false,
+      })
+      return
+    }
 
     setLoading(false)
-    await toast({
+    toast({
       title: `Account created successfully, you may login now`,
       status: 'success',
       position: 'top',
