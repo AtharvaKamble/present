@@ -25,7 +25,7 @@ export default function DisplayPage({ page }: DisplayPageProps) {
                 position: 'absolute',
                 top: element?.position?.y,
                 left: element?.position.x,
-                fontSize: '45px',
+                fontSize: '45px', // pull this from presentation.settings
                 background: 'transparent',
               }}
               onChange={() => {
