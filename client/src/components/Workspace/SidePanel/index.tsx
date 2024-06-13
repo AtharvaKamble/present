@@ -14,7 +14,9 @@ export interface SidePanelProps {
 
 export function SidePanel({ className }: SidePanelProps) {
   return (
-    <div className={`border-r border-slate-600 p-2 bg-stone-800 ${className}`}>
+    <div
+      className={`w-80 border-r border-slate-600 p-2 bg-stone-800 ${className}`}
+    >
       <Tabs colorScheme="orange">
         <TabList>
           <Tab>Slides</Tab>

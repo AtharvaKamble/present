@@ -48,7 +48,7 @@ export default function PlayPresentation({ className }: PlayPresentationProps) {
 
   return (
     <div>
-      <DisplayPage page={pages[focusedPage]} />
+      <DisplayPage page={pages[focusedPage]} className="" />
       <ControlsBar setFocusedPage={setFocusedPage} focusedPage={focusedPage} />
     </div>
   )

@@ -80,7 +80,7 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
   }
 
   return (
-    <nav className="flex justify-between p-6 border-b-2 ">
+    <nav className="flex justify-between p-6 border-b">
       <div className="flex">
         <Input
           value={fileName}

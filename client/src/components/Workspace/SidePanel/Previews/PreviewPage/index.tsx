@@ -1,18 +1,14 @@
 import { TPage } from '@/shared/types'
-import DisplayElement from './DisplayElement'
+import PreviewElement from './PreviewElement'
 
-export interface DisplayPageProps {
+export interface PreviewPageProps {
   page: TPage
   className?: string
 }
 
-export default function DisplayPage({ page, className }: DisplayPageProps) {
+export default function PreviewPage({ page, className }: PreviewPageProps) {
   return (
-    <div
-      id="workarea"
-      className={`w-3/4 relative rounded-sm mx-[45px] ${className}`}
-      data-testid="editor"
-    >
+    <div className={`relative rounded-sm ${className}`}>
       {page?.elements.map((element) => {
         if (element?.name?.toLowerCase() === 'text') {
           return (
@@ -35,7 +31,7 @@ export default function DisplayPage({ page, className }: DisplayPageProps) {
             />
           )
         } else {
-          return <DisplayElement key={element.id} element={element} />
+          return <PreviewElement key={element.id} element={element} />
         }
         // <Resizable
         //   key={element.id}

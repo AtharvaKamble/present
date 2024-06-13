@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 
 import { deletePage, focusPage } from '@/redux/editor/editorSlice'
+import DisplayPage from '@/components/Play/DisplayPage'
+import PreviewPage from './PreviewPage'
 export interface PreviewsProps {
   className?: string
 }
@@ -22,7 +24,7 @@ export function Previews({ className }: PreviewsProps) {
   return (
     <>
       {pages?.map((page: TPage) => {
-        return <Thumbnail key={page?.id} pageId={page?.id} />
+        return <Thumbnail key={page?.id} pageId={page?.id} pages={pages} />
       })}
     </>
   )
@@ -31,23 +33,28 @@ export function Previews({ className }: PreviewsProps) {
 interface ThumbnailProps {
   pageId: string
   className?: string
+  pages: any
 }
 
-function Thumbnail({ className, pageId }: ThumbnailProps) {
+function Thumbnail({ className, pageId, pages }: ThumbnailProps) {
   const [hovered, setHovered] = useState<boolean>(false)
   const dispatch = useDispatch()
 
   function handleThumbnailClick(e: any) {
     dispatch(focusPage(pageId))
   }
-
+  console.log()
   return (
     <div
       onClick={handleThumbnailClick}
-      className={`h-28 mb-4 rounded relative bg-slate-200 cursor-pointer hover:bg-slate-300 hover:border-2 border-slate-400 ${className}`}
+      className={`h-32 mb-4 bg-slate-300 rounded relative  cursor-pointer hover:bg-slate-300 hover:border-2 border-slate-400 ${className}`}
       onMouseEnter={() => setHovered(() => true)}
       onMouseLeave={() => setHovered(() => false)}
     >
+      <PreviewPage
+        page={pages.filter((p: any) => p.id === pageId)[0]}
+        className="scale-[0.1]"
+      />
       <ButtonGroup
         visible={hovered}
         className="absolute top-2 right-2"
