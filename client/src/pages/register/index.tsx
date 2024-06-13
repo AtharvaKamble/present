@@ -37,6 +37,7 @@ export default function Register() {
     password: '',
   })
   const [loading, setLoading] = useState<boolean>(false)
+  const [inputFocus, setInputFocus] = useState<boolean>(false)
 
   async function handleLogin() {
     // Validation start
@@ -136,20 +137,21 @@ export default function Register() {
   return (
     <section className="w-full h-screen flex align-middle justify-center bg-stone-900">
       <Center>
-        <Card maxW="md" className="md:mx-0 mx-4">
+        <Card
+          maxW="md"
+          className={`md:mx-0 mx-4 transition ${inputFocus ? 'scale-110' : ''}`}
+          style={{
+            borderRadius: '3px',
+          }}
+        >
           <CardHeader>
-            <Heading
-              className="text-stone-900"
-              display="flex"
-              justifyContent="center"
-            >
-              Register Here
-            </Heading>
+            <h1 className="text-stone-900 text-4xl font-heading">
+              Create a new account
+            </h1>
           </CardHeader>
           <CardBody>
-            <Text>First Name*</Text>
             <Input
-              placeholder="Enter your first name"
+              placeholder="First name "
               className="mt-1 input-styling"
               size="md"
               value={formData?.firstName}
@@ -161,11 +163,12 @@ export default function Register() {
                   }
                 })
               }
+              onFocus={() => setInputFocus(() => true)}
+              onBlur={() => setInputFocus(() => false)}
             />
 
-            <Text>Last Name*</Text>
             <Input
-              placeholder="Enter your last name"
+              placeholder="Last name "
               className="mt-1 input-styling"
               size="md"
               value={formData?.lastName}
@@ -177,11 +180,12 @@ export default function Register() {
                   }
                 })
               }
+              onFocus={() => setInputFocus(() => true)}
+              onBlur={() => setInputFocus(() => false)}
             />
 
-            <Text>Email*</Text>
             <Input
-              placeholder="Enter your email"
+              placeholder="Email "
               className="mt-1 input-styling"
               size="md"
               value={formData?.email}
@@ -193,14 +197,15 @@ export default function Register() {
                   }
                 })
               }
+              onFocus={() => setInputFocus(() => true)}
+              onBlur={() => setInputFocus(() => false)}
             />
-            <Text className="">Password*</Text>
 
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
                 type={show ? 'text' : 'password'}
-                placeholder="Enter password"
+                placeholder="Password"
                 className="mt-1 input-styling"
                 value={formData?.password}
                 onChange={(e) =>
@@ -211,6 +216,8 @@ export default function Register() {
                     }
                   })
                 }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
               />
               <InputRightElement width="4.5rem" className="mt-1">
                 <Button
@@ -230,6 +237,9 @@ export default function Register() {
               color="#EAEAEA"
               onClick={() => handleLogin()}
               isLoading={loading}
+              style={{
+                borderRadius: '3px',
+              }}
             >
               Register
             </Button>

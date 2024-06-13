@@ -32,6 +32,7 @@ export default function Login() {
     password: '',
   })
   const [loading, setLoading] = useState<boolean>(false)
+  const [inputFocus, setInputFocus] = useState<boolean>(false)
 
   const SERVER_DOMAIN =
     process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
@@ -108,12 +109,20 @@ export default function Login() {
   return (
     <section className="w-full h-screen flex align-middle justify-center bg-stone-900">
       <Center>
-        <Card maxW="md" className="md:mx-0 mx-4">
+        <Card
+          maxW="md"
+          style={{
+            borderRadius: '3px',
+          }}
+          className={`md:mx-0 mx-4 transition ${inputFocus ? 'scale-110' : ''}`}
+        >
           <CardHeader>
-            <Heading className="text-stone-900">Welcome back</Heading>
+            <h1 className="text-stone-900 text-4xl font-heading">
+              Welcome back
+            </h1>
           </CardHeader>
           <CardBody>
-            <Text>Email</Text>
+            {/*<Text>Email</Text>*/}
             <Input
               placeholder="Enter your email"
               className="mt-1"
@@ -127,15 +136,17 @@ export default function Login() {
                   }
                 })
               }
+              onFocus={() => setInputFocus(() => true)}
+              onBlur={() => setInputFocus(() => false)}
             />
-            <Text className="mt-10">Password</Text>
+            {/* <Text className="mt-10">Password</Text> */}
 
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
                 type={show ? 'text' : 'password'}
                 placeholder="Enter password"
-                className="mt-1"
+                className="mt-10"
                 value={formData?.password}
                 onChange={(e) =>
                   setFormData((prev) => {
@@ -145,8 +156,10 @@ export default function Login() {
                     }
                   })
                 }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
               />
-              <InputRightElement width="4.5rem" className="mt-1">
+              <InputRightElement width="4.5rem" className="mt-10">
                 <Button
                   h="1.75rem"
                   size="sm"
@@ -164,6 +177,7 @@ export default function Login() {
               color="#EAEAEA"
               onClick={() => handleLogin()}
               isLoading={loading}
+              style={{ borderRadius: '3px' }}
             >
               Login
             </Button>

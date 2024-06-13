@@ -10,6 +10,13 @@
   font-family: 'Karla', sans-serif;
 }
 
+*::selection {
+  color: #202020 !important;
+  background-color: #cbcbcb !important;
+  border-radius: 10px;
+}
+
+
 .font-heading {
   /* font-family: 'Dela Gothic One', sans-serif; */
   /* font-family: 'Inter', sans-serif; */
