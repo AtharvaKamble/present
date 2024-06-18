@@ -11,7 +11,7 @@ export default function Navbar() {
   const SERVER_DOMAIN =
     process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
   async function handleRegister() {
-    router.push('/register')
+    router.push('register')
   }
   return (
     <>

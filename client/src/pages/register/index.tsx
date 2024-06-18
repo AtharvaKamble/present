@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import '../register/index.css'
+import GradientDiv from '@/components/GradientDiv'
 
 interface TLoginFormData {
   firstName: string
@@ -37,6 +38,7 @@ export default function Register() {
     password: '',
   })
   const [loading, setLoading] = useState<boolean>(false)
+  const [inputFocus, setInputFocus] = useState<boolean>(false)
 
   async function handleLogin() {
     // Validation start
@@ -95,131 +97,160 @@ export default function Register() {
     // Validation end
 
     setLoading(true)
-    const res = await fetch(`api/user/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/user/register`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       },
-      body: JSON.stringify(formData),
-    })
+    )
 
     const data = await res.json()
-    console.log(data)
+
+    if (!data?.success && data?.error?.code === 11000) {
+      //  duplicate key error code from MongoDB
+      console.log(data)
+
+      setLoading(false)
+      toast({
+        title: `Seems like this e-mail is already in use`,
+        status: 'warning',
+        position: 'top',
+        isClosable: false,
+      })
+      return
+    }
 
     setLoading(false)
-    await toast({
+    toast({
       title: `Account created successfully, you may login now`,
       status: 'success',
       position: 'top',
       isClosable: false,
     })
 
-    router.push('/login')
+    router.push('login')
   }
 
   return (
-    <section className="w-full h-screen flex align-middle justify-center bg-stone-900">
-      <Center>
-        <Card maxW="md" className="md:mx-0 mx-4">
-          <CardHeader>
-            <Heading
-              className="text-stone-900"
-              display="flex"
-              justifyContent="center"
-            >
-              Register Here
-            </Heading>
-          </CardHeader>
-          <CardBody>
-            <Text>First Name*</Text>
-            <Input
-              placeholder="Enter your first name"
-              className="mt-1 input-styling"
-              size="md"
-              value={formData?.firstName}
-              onChange={(e) =>
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    firstName: e.target.value,
-                  }
-                })
-              }
-            />
-
-            <Text>Last Name*</Text>
-            <Input
-              placeholder="Enter your last name"
-              className="mt-1 input-styling"
-              size="md"
-              value={formData?.lastName}
-              onChange={(e) =>
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    lastName: e.target.value,
-                  }
-                })
-              }
-            />
-
-            <Text>Email*</Text>
-            <Input
-              placeholder="Enter your email"
-              className="mt-1 input-styling"
-              size="md"
-              value={formData?.email}
-              onChange={(e) =>
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    email: e.target.value,
-                  }
-                })
-              }
-            />
-            <Text className="">Password*</Text>
-
-            <InputGroup size="md">
+    <GradientDiv className="bg-stone-900 w-screen h-screen flex justify-center content-center">
+      <section className="w-full h-screen flex align-middle justify-center">
+        <Center>
+          <Card
+            maxW="md"
+            className={`md:mx-0 mx-4 transition ${
+              inputFocus ? 'scale-110' : ''
+            }`}
+            style={{
+              borderRadius: '3px',
+            }}
+          >
+            <CardHeader>
+              <h1 className="text-stone-900 text-4xl font-heading">
+                Create a new account
+              </h1>
+            </CardHeader>
+            <CardBody>
               <Input
-                pr="4.5rem"
-                type={show ? 'text' : 'password'}
-                placeholder="Enter password"
+                placeholder="First name "
                 className="mt-1 input-styling"
-                value={formData?.password}
+                size="md"
+                value={formData?.firstName}
                 onChange={(e) =>
                   setFormData((prev) => {
                     return {
                       ...prev,
-                      password: e.target.value,
+                      firstName: e.target.value,
                     }
                   })
                 }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
               />
-              <InputRightElement width="4.5rem" className="mt-1">
-                <Button
-                  h="1.75rem"
-                  size="sm"
-                  onClick={() => setShow((prev) => !prev)}
-                >
-                  {show ? 'Hide' : 'Show'}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </CardBody>
-          <CardFooter display="flex" justifyContent="center">
-            <Button
-              _hover={{ color: '#EAEAEA', backgroundColor: '#373737' }}
-              backgroundColor="#1C1C1C"
-              color="#EAEAEA"
-              onClick={() => handleLogin()}
-              isLoading={loading}
-            >
-              Register
-            </Button>
-          </CardFooter>
-        </Card>
-      </Center>
-    </section>
+
+              <Input
+                placeholder="Last name "
+                className="mt-1 input-styling"
+                size="md"
+                value={formData?.lastName}
+                onChange={(e) =>
+                  setFormData((prev) => {
+                    return {
+                      ...prev,
+                      lastName: e.target.value,
+                    }
+                  })
+                }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
+              />
+
+              <Input
+                placeholder="Email "
+                className="mt-1 input-styling"
+                size="md"
+                value={formData?.email}
+                onChange={(e) =>
+                  setFormData((prev) => {
+                    return {
+                      ...prev,
+                      email: e.target.value,
+                    }
+                  })
+                }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
+              />
+
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={show ? 'text' : 'password'}
+                  placeholder="Password"
+                  className="mt-1 input-styling"
+                  value={formData?.password}
+                  onChange={(e) =>
+                    setFormData((prev) => {
+                      return {
+                        ...prev,
+                        password: e.target.value,
+                      }
+                    })
+                  }
+                  onFocus={() => setInputFocus(() => true)}
+                  onBlur={() => setInputFocus(() => false)}
+                />
+                <InputRightElement width="4.5rem" className="mt-1">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={() => setShow((prev) => !prev)}
+                  >
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </CardBody>
+            <CardFooter display="flex" justifyContent="center">
+              <Button
+                _hover={{ color: '#EAEAEA', backgroundColor: '#373737' }}
+                backgroundColor="#1C1C1C"
+                color="#EAEAEA"
+                onClick={() => handleLogin()}
+                isLoading={loading}
+                style={{
+                  borderRadius: '3px',
+                }}
+              >
+                Register
+              </Button>
+            </CardFooter>
+          </Card>
+        </Center>
+      </section>
+    </GradientDiv>
   )
 }

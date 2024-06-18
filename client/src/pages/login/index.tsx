@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import GradientDiv from '@/components/GradientDiv'
 
 interface TLoginFormData {
   email: string
@@ -32,6 +33,7 @@ export default function Login() {
     password: '',
   })
   const [loading, setLoading] = useState<boolean>(false)
+  const [inputFocus, setInputFocus] = useState<boolean>(false)
 
   const SERVER_DOMAIN =
     process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
@@ -58,13 +60,16 @@ export default function Login() {
     // Validation end
 
     setLoading(true)
-    const res = await fetch(`/api/user/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/user/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       },
-      body: JSON.stringify(formData),
-    })
+    )
 
     const data = await res.json()
 
@@ -103,70 +108,87 @@ export default function Login() {
   }
 
   return (
-    <section className="w-full h-screen flex align-middle justify-center bg-stone-900">
-      <Center>
-        <Card maxW="md" className="md:mx-0 mx-4">
-          <CardHeader>
-            <Heading className="text-stone-900">Welcome back</Heading>
-          </CardHeader>
-          <CardBody>
-            <Text>Email</Text>
-            <Input
-              placeholder="Enter your email"
-              className="mt-1"
-              size="md"
-              value={formData?.email}
-              onChange={(e) =>
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    email: e.target.value,
-                  }
-                })
-              }
-            />
-            <Text className="mt-10">Password</Text>
-
-            <InputGroup size="md">
+    <GradientDiv className="bg-stone-900 w-screen h-screen flex justify-center content-center">
+      <section className="w-full h-screen flex align-middle justify-center">
+        <Center>
+          <Card
+            maxW="md"
+            style={{
+              borderRadius: '3px',
+            }}
+            className={`md:mx-0 mx-4 transition ${
+              inputFocus ? 'scale-110' : ''
+            }`}
+          >
+            <CardHeader>
+              <h1 className="text-stone-900 text-4xl font-heading">
+                Welcome back
+              </h1>
+            </CardHeader>
+            <CardBody>
+              {/*<Text>Email</Text>*/}
               <Input
-                pr="4.5rem"
-                type={show ? 'text' : 'password'}
-                placeholder="Enter password"
+                placeholder="Enter your email"
                 className="mt-1"
-                value={formData?.password}
+                size="md"
+                value={formData?.email}
                 onChange={(e) =>
                   setFormData((prev) => {
                     return {
                       ...prev,
-                      password: e.target.value,
+                      email: e.target.value,
                     }
                   })
                 }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
               />
-              <InputRightElement width="4.5rem" className="mt-1">
-                <Button
-                  h="1.75rem"
-                  size="sm"
-                  onClick={() => setShow((prev) => !prev)}
-                >
-                  {show ? 'Hide' : 'Show'}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </CardBody>
-          <CardFooter>
-            <Button
-              _hover={{ color: '#EAEAEA', backgroundColor: '#373737' }}
-              backgroundColor="#1C1C1C"
-              color="#EAEAEA"
-              onClick={() => handleLogin()}
-              isLoading={loading}
-            >
-              Login
-            </Button>
-          </CardFooter>
-        </Card>
-      </Center>
-    </section>
+              {/* <Text className="mt-10">Password</Text> */}
+
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={show ? 'text' : 'password'}
+                  placeholder="Enter password"
+                  className="mt-10"
+                  value={formData?.password}
+                  onChange={(e) =>
+                    setFormData((prev) => {
+                      return {
+                        ...prev,
+                        password: e.target.value,
+                      }
+                    })
+                  }
+                  onFocus={() => setInputFocus(() => true)}
+                  onBlur={() => setInputFocus(() => false)}
+                />
+                <InputRightElement width="4.5rem" className="mt-10">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={() => setShow((prev) => !prev)}
+                  >
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </CardBody>
+            <CardFooter>
+              <Button
+                _hover={{ color: '#EAEAEA', backgroundColor: '#373737' }}
+                backgroundColor="#1C1C1C"
+                color="#EAEAEA"
+                onClick={() => handleLogin()}
+                isLoading={loading}
+                style={{ borderRadius: '3px' }}
+              >
+                Login
+              </Button>
+            </CardFooter>
+          </Card>
+        </Center>
+      </section>
+    </GradientDiv>
   )
 }

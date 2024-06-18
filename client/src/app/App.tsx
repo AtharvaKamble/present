@@ -21,7 +21,9 @@ export default function App() {
   const SERVER_DOMAIN =
     process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`
   async function fetchPresentation() {
-    const res = await fetch(`/api/presentation/${params?.pid}`)
+    const res = await fetch(
+      `/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/api/presentation/${params?.pid}`,
+    )
     const data = await res.json()
 
     dispatch(loadPages(data?.body?.pages))
