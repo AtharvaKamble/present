@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import '../register/index.css'
+import GradientDiv from '@/components/GradientDiv'
 
 interface TLoginFormData {
   firstName: string
@@ -135,117 +136,121 @@ export default function Register() {
   }
 
   return (
-    <section className="w-full h-screen flex align-middle justify-center bg-stone-900">
-      <Center>
-        <Card
-          maxW="md"
-          className={`md:mx-0 mx-4 transition ${inputFocus ? 'scale-110' : ''}`}
-          style={{
-            borderRadius: '3px',
-          }}
-        >
-          <CardHeader>
-            <h1 className="text-stone-900 text-4xl font-heading">
-              Create a new account
-            </h1>
-          </CardHeader>
-          <CardBody>
-            <Input
-              placeholder="First name "
-              className="mt-1 input-styling"
-              size="md"
-              value={formData?.firstName}
-              onChange={(e) =>
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    firstName: e.target.value,
-                  }
-                })
-              }
-              onFocus={() => setInputFocus(() => true)}
-              onBlur={() => setInputFocus(() => false)}
-            />
-
-            <Input
-              placeholder="Last name "
-              className="mt-1 input-styling"
-              size="md"
-              value={formData?.lastName}
-              onChange={(e) =>
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    lastName: e.target.value,
-                  }
-                })
-              }
-              onFocus={() => setInputFocus(() => true)}
-              onBlur={() => setInputFocus(() => false)}
-            />
-
-            <Input
-              placeholder="Email "
-              className="mt-1 input-styling"
-              size="md"
-              value={formData?.email}
-              onChange={(e) =>
-                setFormData((prev) => {
-                  return {
-                    ...prev,
-                    email: e.target.value,
-                  }
-                })
-              }
-              onFocus={() => setInputFocus(() => true)}
-              onBlur={() => setInputFocus(() => false)}
-            />
-
-            <InputGroup size="md">
+    <GradientDiv className="bg-stone-900 w-screen h-screen flex justify-center content-center">
+      <section className="w-full h-screen flex align-middle justify-center">
+        <Center>
+          <Card
+            maxW="md"
+            className={`md:mx-0 mx-4 transition ${
+              inputFocus ? 'scale-110' : ''
+            }`}
+            style={{
+              borderRadius: '3px',
+            }}
+          >
+            <CardHeader>
+              <h1 className="text-stone-900 text-4xl font-heading">
+                Create a new account
+              </h1>
+            </CardHeader>
+            <CardBody>
               <Input
-                pr="4.5rem"
-                type={show ? 'text' : 'password'}
-                placeholder="Password"
+                placeholder="First name "
                 className="mt-1 input-styling"
-                value={formData?.password}
+                size="md"
+                value={formData?.firstName}
                 onChange={(e) =>
                   setFormData((prev) => {
                     return {
                       ...prev,
-                      password: e.target.value,
+                      firstName: e.target.value,
                     }
                   })
                 }
                 onFocus={() => setInputFocus(() => true)}
                 onBlur={() => setInputFocus(() => false)}
               />
-              <InputRightElement width="4.5rem" className="mt-1">
-                <Button
-                  h="1.75rem"
-                  size="sm"
-                  onClick={() => setShow((prev) => !prev)}
-                >
-                  {show ? 'Hide' : 'Show'}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </CardBody>
-          <CardFooter display="flex" justifyContent="center">
-            <Button
-              _hover={{ color: '#EAEAEA', backgroundColor: '#373737' }}
-              backgroundColor="#1C1C1C"
-              color="#EAEAEA"
-              onClick={() => handleLogin()}
-              isLoading={loading}
-              style={{
-                borderRadius: '3px',
-              }}
-            >
-              Register
-            </Button>
-          </CardFooter>
-        </Card>
-      </Center>
-    </section>
+
+              <Input
+                placeholder="Last name "
+                className="mt-1 input-styling"
+                size="md"
+                value={formData?.lastName}
+                onChange={(e) =>
+                  setFormData((prev) => {
+                    return {
+                      ...prev,
+                      lastName: e.target.value,
+                    }
+                  })
+                }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
+              />
+
+              <Input
+                placeholder="Email "
+                className="mt-1 input-styling"
+                size="md"
+                value={formData?.email}
+                onChange={(e) =>
+                  setFormData((prev) => {
+                    return {
+                      ...prev,
+                      email: e.target.value,
+                    }
+                  })
+                }
+                onFocus={() => setInputFocus(() => true)}
+                onBlur={() => setInputFocus(() => false)}
+              />
+
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={show ? 'text' : 'password'}
+                  placeholder="Password"
+                  className="mt-1 input-styling"
+                  value={formData?.password}
+                  onChange={(e) =>
+                    setFormData((prev) => {
+                      return {
+                        ...prev,
+                        password: e.target.value,
+                      }
+                    })
+                  }
+                  onFocus={() => setInputFocus(() => true)}
+                  onBlur={() => setInputFocus(() => false)}
+                />
+                <InputRightElement width="4.5rem" className="mt-1">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={() => setShow((prev) => !prev)}
+                  >
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </CardBody>
+            <CardFooter display="flex" justifyContent="center">
+              <Button
+                _hover={{ color: '#EAEAEA', backgroundColor: '#373737' }}
+                backgroundColor="#1C1C1C"
+                color="#EAEAEA"
+                onClick={() => handleLogin()}
+                isLoading={loading}
+                style={{
+                  borderRadius: '3px',
+                }}
+              >
+                Register
+              </Button>
+            </CardFooter>
+          </Card>
+        </Center>
+      </section>
+    </GradientDiv>
   )
 }
