@@ -21,6 +21,7 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
   const params = useParams()
 
   const [fileName, setFileName] = useState<string>(presentationName || 'yeeh')
+  const [copiedCounter, setCopiedCounter] = useState<boolean>(false)
   const { pages } = useSelector((state: any) => state.editor)
   const dispatch = useDispatch()
 
@@ -44,7 +45,7 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
   }
 
   function handleClick(
-    operation: 'add' | 'delete' | 'save' | 'preview' | 'download',
+    operation: 'add' | 'delete' | 'save' | 'preview' | 'download' | 'copy',
   ) {
     switch (operation) {
       case 'add':
@@ -59,11 +60,29 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
         sendPresentation()
         toast({
           title: 'Presentation saved',
-          colorScheme: 'green',
+          colorScheme: 'teal',
           position: 'bottom-right',
         })
         break
       case 'preview':
+        break
+      case 'copy':
+        toast({
+          title: 'Share link copied to clipboard',
+          colorScheme: 'orange',
+          position: 'bottom-right',
+        })
+
+        navigator.clipboard.writeText(
+          `${window?.location?.origin}/${process.env.NEXT_PUBLIC_ASSET_PREFIX}/play/${params?.pid}`,
+        )
+
+        setCopiedCounter(true)
+
+        setTimeout(() => {
+          setCopiedCounter(false)
+        }, 4000)
+
         break
     }
   }
@@ -99,7 +118,7 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
           <Button
             onClick={() => handleClick('save')}
             variant="ghost"
-            className="bg-green-700 hover:bg-green-800"
+            className="bg-teal-700 hover:bg-teal-800 hover:text-white rounded-sm"
           >
             save
           </Button>
@@ -112,11 +131,20 @@ export default React.memo(function Topbar({ presentationName }: TopbarProps) {
             <Button
               onClick={() => handleClick('preview')}
               variant="ghost"
-              className="bg-blue-700 hover:bg-blue-800"
+              className="bg-sky-700 hover:bg-sky-800 hover:text-white rounded-sm"
             >
               preview
             </Button>
           </a>
+        </Tooltip>
+        <Tooltip label="share this presentation">
+          <Button
+            onClick={() => handleClick('copy')}
+            variant="ghost"
+            className="bg-amber-700 hover:bg-amber-800 text-white rounded-sm"
+          >
+            {copiedCounter ? 'copied!' : 'copy share link'}
+          </Button>
         </Tooltip>
         {/* <Tooltip label="download this presentation">
         <a href={fileName} download={fileName} target="_blank">
